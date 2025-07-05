@@ -1,0 +1,317 @@
+/* -----------------------------------
+🍵 Matcha Soda Theme Colors & Fonts
+----------------------------------- */
+:root {
+  --font-body: 'Quicksand', sans-serif;
+  --font-heading: 'Caveat', cursive;
+
+  --color-bg: #fdfaf4;
+  --color-text: #4a453f;
+  --color-accent1: #f4c8a7; /* Cream Soda Peach */
+  --color-accent2: #b9ddc8; /* Icy Matcha Green */
+  --color-accent3: #d7e6db; /* Muted Mint Tint */
+  --color-card-bg: #ffffff;
+  --color-input-bg: #fef4eb;
+  --color-btn-bg: var(--color-accent2);
+  --color-btn-hover-bg: #9fcbb5;
+  --color-btn-text: #3d3a36;
+  --color-card-border: #d1e3d6;
+
+  --radius: 1.6rem;
+  --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.08);
+  --transition: 0.3s ease;
+}
+
+[data-theme="dark"] {
+  --color-bg: #2e2b26;
+  --color-text: #f4f1ec;
+  --color-accent1: #d4a88a;
+  --color-accent2: #7ea293;
+  --color-accent3: #91b5a1;
+  --color-card-bg: #3c3935;
+  --color-input-bg: #4e4a45;
+  --color-btn-bg: var(--color-accent2);
+  --color-btn-hover-bg: #6a8c7c;
+  --color-btn-text: #f4f1ec;
+  --color-card-border: #888077;
+}
+
+/* -----------------------------------
+🌊 Background Texture
+----------------------------------- */
+.background-waves {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 80%, var(--color-accent1) 15%, transparent 40%),
+    radial-gradient(circle at 80% 20%, var(--color-accent2) 15%, transparent 40%),
+    radial-gradient(circle at 50% 50%, var(--color-accent3) 25%, transparent 60%);
+  opacity: 0.12;
+  z-index: -1;
+}
+
+/* -----------------------------------
+🌟 Reset & Base
+----------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0; padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  user-select: none;
+}
+
+/* -----------------------------------
+🧊 Container & Card
+----------------------------------- */
+.container {
+  width: 100%;
+  max-width: 520px;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background: var(--color-card-bg);
+  border-radius: var(--radius);
+  padding: 3rem 2.5rem 2.5rem;
+  box-shadow: var(--shadow-soft);
+  width: 100%;
+  border: 2px solid var(--color-card-border);
+  transition: border-color 0.3s ease;
+}
+
+/* -----------------------------------
+🧭 Header - Title + Controls
+----------------------------------- */
+.site-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.app-title {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  color: var(--color-text);
+  text-align: center;
+  user-select: text;
+}
+
+.top-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* -----------------------------------
+🔍 Search Form + Input + Button
+----------------------------------- */
+form#searchForm {
+  display: flex;
+  gap: 0.6rem;
+  flex-grow: 1;
+  width: 100%;
+}
+
+#cityInput {
+  flex-grow: 1;
+  padding: 0.9rem 1.2rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--color-accent3);
+  background-color: var(--color-input-bg);
+  color: var(--color-text);
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline-offset: 3px;
+}
+
+#cityInput::placeholder {
+  color: hsl(32, 8%, 39%); 
+  opacity: 0.8;
+}
+
+#cityInput:focus {
+  border-color: var(--color-accent1);
+  box-shadow: 0 0 8px var(--color-accent1);
+}
+
+#searchBtn {
+  background-color: var(--color-btn-bg);
+  color: var(--color-btn-text);
+  border: none;
+  padding: 0 1.4rem;
+  font-size: 1.4rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color var(--transition), box-shadow var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+#searchBtn:hover,
+#searchBtn:focus {
+  background-color: var(--color-btn-hover-bg);
+  box-shadow: 0 6px 15px var(--color-accent2);
+  outline: none;
+  transform: scale(1.05);
+}
+
+/* -----------------------------------
+🌗 Theme Toggle Button
+----------------------------------- */
+#toggleTheme {
+  background: none;
+  border: none;
+  font-size: 2.4rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  color: var(--color-accent1);
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem;
+  border-radius: 50%;
+}
+
+#toggleTheme:hover,
+#toggleTheme:focus {
+  transform: rotate(20deg) scale(1.15);
+  outline: none;
+  color: var(--color-accent2);
+}
+
+/* -----------------------------------
+☀️ Forecast Card
+----------------------------------- */
+.forecast-card {
+  background: var(--color-card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  user-select: none;
+}
+
+.forecast-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.weather-icon {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 1rem;
+  animation: float 3.5s ease-in-out infinite;
+  user-select: none;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.forecast-card h2 {
+  font-family: var(--font-heading);
+  font-size: 2.6rem;
+  margin-bottom: 0.6rem;
+  color: var(--color-accent2);
+}
+
+.forecast-card p {
+  font-size: 1.3rem;
+  margin-bottom: 0.4rem;
+  color: var(--color-text);
+}
+
+.crew-message {
+  margin-top: 1rem;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--color-accent1);
+  min-height: 2.4rem;
+  user-select: text;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* -----------------------------------
+📮 Footer
+----------------------------------- */
+.site-footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.site-footer small {
+  font-size: 0.95rem;
+  opacity: 0.75;
+  color: var(--color-text);
+  transition: opacity 0.3s ease;
+}
+
+/* -----------------------------------
+♿ Accessibility
+----------------------------------- */
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* -----------------------------------
+📱 Responsive
+----------------------------------- */
+@media (max-width: 520px) {
+  .card {
+    padding: 2.5rem 1.5rem 2rem;
+  }
+
+  .app-title {
+    font-size: 2.4rem;
+  }
+
+  #cityInput {
+    font-size: 1rem;
+  }
+
+  #searchBtn {
+    font-size: 1.2rem;
+  }
+
+  .forecast-card h2 {
+    font-size: 2rem;
+  }
+
+  .forecast-card p,
+  .crew-message {
+    font-size: 1rem;
+  }
+}
