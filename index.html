@@ -3,74 +3,104 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>🍵 One Weather Piece - Your Island Forecast</title>
+    <title>🍵 One Weather Piece — Island Forecasts with Charm</title>
 
-    <meta name="description" content="A cute One Piece-themed weather app with Matcha Soda colors, Straw Hat crew quotes, and real or fictional forecasts." />
-    <meta name="theme-color" content="#fdfaf4" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#2e2b26" media="(prefers-color-scheme: dark)" />
-
+    <!-- ✨ Meta Polish -->
+    <meta name="description" content="A pastel-powered One Piece weather app with Straw Hat vibes, cozy themes, and island forecasts." />
+    <meta name="theme-color" content="#fdfaf4" />
     <meta property="og:title" content="One Weather Piece" />
-    <meta property="og:description" content="A recruiter-friendly One Piece weather app with matcha vibes and fictional island forecasts." />
+    <meta property="og:description" content="Cuteness meets climate in this One Piece-inspired weather app built with care." />
     <meta property="og:type" content="website" />
 
+    <!-- 🌟 Manifest & Favicon -->
+    <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+
+    <!-- 🖋 Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Quicksand&display=swap" rel="stylesheet" />
+
+    <!-- 💅 Styles -->
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
     <main class="container" role="main" aria-label="One Weather Piece App">
+      <!-- 🌊 Pastel Bubbles Background -->
       <div class="background-waves" aria-hidden="true"></div>
 
+      <!-- 📦 Main Forecast Card -->
       <article class="card" aria-live="polite" aria-atomic="true">
+        
         <!-- 🧭 Header -->
         <header class="site-header" role="banner">
           <h1 class="app-title" tabindex="0">🍵 One Weather Piece</h1>
 
           <div class="top-controls">
-            <form id="searchForm" role="search" aria-label="Search city or island" autocomplete="off" onsubmit="return false;">
-              <label for="cityInput" class="sr-only">Enter city or island</label>
+            <form id="searchForm" role="search" aria-label="Search city or island" autocomplete="off" novalidate>
+              <label for="cityInput" class="sr-only">Enter a real or fictional island</label>
               <input
                 type="text"
                 id="cityInput"
                 name="city"
-                placeholder="Search New York, Skypiea, Varanasi..."
+                placeholder="Search New York, Skypiea..."
                 aria-describedby="searchHelp"
                 spellcheck="false"
                 autocomplete="off"
                 required
               />
-              <button type="submit" id="searchBtn" aria-label="Search weather">🔎</button>
+              <button type="submit" id="searchBtn" aria-label="Search weather" title="Get Forecast">🔎</button>
             </form>
 
-            <button id="toggleTheme" aria-label="Toggle theme" title="Toggle theme">🌞</button>
+            <button
+              id="toggleTheme"
+              aria-label="Toggle light/dark theme"
+              title="Switch Theme"
+              class="theme-toggle"
+            >
+              🌞
+            </button>
           </div>
         </header>
 
-        <!-- ⛅ Forecast Card -->
+        <!-- ⛅ Forecast Results -->
         <section id="forecastCard" class="forecast-card" hidden aria-live="polite" aria-atomic="true">
           <img
-            src=""
+            src="assets/luffy-sunny.png"
             alt="Weather icon"
             id="weatherIcon"
             class="weather-icon"
             aria-hidden="true"
           />
-          <h2 id="cityName" tabindex="0">Your Island Awaits</h2>
-          <p id="weatherDesc" tabindex="0">No weather data yet</p>
-          <p id="temperature" tabindex="0">--°C</p>
-          <p id="crewMessage" class="crew-message" tabindex="0" aria-live="assertive">
-            🏝️ Search a real city or a One Piece island to begin!
-          </p>
+          <h2 id="cityName" tabindex="0">Alabasta</h2>
+          <p id="weatherDesc" tabindex="0">Sunny with Straw Hat charm</p>
+          <p id="temperature" tabindex="0">--</p>
+          <p id="crewMessage" class="crew-message" tabindex="0" aria-live="assertive"></p>
+        </section>
+
+        <!-- 🍃 Idle State Before Search -->
+        <section id="emptyState" class="forecast-card visible" aria-hidden="false">
+          <img src="assets/luffy-idle.png" alt="Luffy smiling" class="weather-icon" />
+          <h2>Welcome, Nakama!</h2>
+          <p>Search your island to begin your forecast ☁️</p>
+          <p class="crew-message">Luffy says: Let’s see what the sea’s got today!</p>
         </section>
 
         <!-- 📮 Footer -->
         <footer class="site-footer" role="contentinfo">
-          <small>Made with 💖 by Shreya — Inspired by One Piece</small>
+          <small>
+            Made with ☀️ HTML, 🍃 CSS, ⚓ JS & 💨 OpenWeather.  
+            <br />
+            <a
+              href="https://github.com/shreyapuff/one-weather-piece"
+              target="_blank"
+              rel="noopener noreferrer"
+            >View on GitHub</a>
+          </small>
         </footer>
       </article>
     </main>
 
-    <script src="script.js"></script>
+    <!-- ⚙️ App Logic -->
+    <script src="script.js" defer></script>
   </body>
 </html>

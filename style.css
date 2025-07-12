@@ -1,24 +1,28 @@
 /* -----------------------------------
-🍵 Matcha Soda Theme Colors & Fonts
+🍵 One Weather Piece — Polished Stylesheet
+Every single roast point has been applied.
 ----------------------------------- */
+
+/* === Fonts & Theme Colors === */
 :root {
   --font-body: 'Quicksand', sans-serif;
   --font-heading: 'Caveat', cursive;
 
+  /* 🌞 Light Theme (Matcha Soda Fantasy) */
   --color-bg: #fdfaf4;
-  --color-text: #4a453f;
+  --color-text: #3e3a35;
   --color-accent1: #f4c8a7;     /* Cream Soda Peach */
-  --color-accent2: #b9ddc8;     /* Icy Matcha Green */
-  --color-accent3: #d7e6db;     /* Muted Mint Tint */
-  --color-highlight: #ffb2d0;   /* Strawberry sparkle */
+  --color-accent2: #b8e1c5;     /* Fizzing Icy Matcha */
+  --color-accent3: #dceee3;     /* Pastel Mint Mist */
+  --color-highlight: #ffb2d0;   /* Sparkle Pink */
   --color-shadow: rgba(255, 203, 218, 0.4);
 
-  --color-card-bg: #ffffff;
+  --color-card-bg: linear-gradient(145deg, #fffdf9, #f9f2e8);
   --color-input-bg: #fef4eb;
   --color-btn-bg: var(--color-accent2);
   --color-btn-hover-bg: #9fcbb5;
   --color-btn-text: #3d3a36;
-  --color-card-border: #d1e3d6;
+  --color-card-border: #cbe9d5;
 
   --radius: 1.6rem;
   --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.05),
@@ -26,46 +30,49 @@
   --transition: 0.3s ease;
 }
 
+/* 🌙 Dark Theme (Strawberry Night Deck) */
 [data-theme="dark"] {
-  --color-bg: #1e1a17;
+  --color-bg: #17131c;
   --color-text: #fdf7f0;
   --color-accent1: #ffc0cb;
   --color-accent2: #a4edea;
-  --color-accent3: #7a9e94;
+  --color-accent3: #8bc1b8;
   --color-highlight: #ffd1dc;
   --color-shadow: rgba(255, 192, 203, 0.25);
 
-  --color-card-bg: #2c2623;
-  --color-input-bg: #3a3431;
+  --color-card-bg: linear-gradient(145deg, #2c2623, #1e1a17);
+  --color-input-bg: #312c28;
   --color-btn-bg: var(--color-accent2);
   --color-btn-hover-bg: #78c9c3;
   --color-btn-text: #fdf7f0;
   --color-card-border: #665c56;
 }
 
-/* -----------------------------------
-🌊 Background Texture
------------------------------------ */
+/* === Pastel Animated Background === */
 .background-waves {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;
   pointer-events: none;
   background:
     radial-gradient(circle at 20% 80%, var(--color-accent1) 15%, transparent 40%),
     radial-gradient(circle at 80% 20%, var(--color-accent2) 15%, transparent 40%),
     radial-gradient(circle at 50% 50%, var(--color-accent3) 25%, transparent 60%);
-  opacity: 0.15;
+  opacity: 0.12;
+  animation: shimmer 12s ease-in-out infinite alternate;
   z-index: -1;
 }
 
-/* -----------------------------------
-🌟 Reset & Base
------------------------------------ */
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* === Reset === */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  transition: background-color var(--transition), color var(--transition), border-color var(--transition);
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition), transform var(--transition), opacity var(--transition);
 }
 
 html {
@@ -76,50 +83,47 @@ body {
   font-family: var(--font-body);
   background: var(--color-bg);
   color: var(--color-text);
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  flex-direction: column;
   user-select: none;
-  overflow-x: hidden;
-  overflow-y: auto; /* 👈 allows scroll when needed */
 }
 
-
-
-/* -----------------------------------
-🧊 Container & Card
------------------------------------ */
+/* === Container & Card === */
 .container {
   width: 100%;
-  max-width: 520px;
+  max-width: 540px;
   padding: 0 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;        /* 👈 ensures centering */
 }
-
 
 .card {
   background: var(--color-card-bg);
   border-radius: var(--radius);
   padding: 3rem 2.5rem 2.5rem;
   box-shadow: var(--shadow-soft);
-  width: 100%;
   border: 2px solid var(--color-card-border);
+  width: 100%;
+  transform: translateY(0);
   transition: transform var(--transition), background var(--transition);
+  animation: fadeUp 0.8s ease;
 }
 
 .card:hover {
-  transform: scale(1.01) rotate(-0.2deg);
+  transform: scale(1.01) rotate(-0.3deg);
 }
 
-/* -----------------------------------
-🧭 Header - Title + Controls
------------------------------------ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === Header === */
 .site-header {
   display: flex;
   flex-direction: column;
@@ -129,10 +133,12 @@ body {
 
 .app-title {
   font-family: var(--font-heading);
-  font-size: 3rem;
+  font-size: 3.2rem;
   color: var(--color-text);
   text-align: center;
+  text-shadow: 1px 1px 0 var(--color-highlight);
   user-select: text;
+  letter-spacing: 0.05em;
 }
 
 .top-controls {
@@ -143,9 +149,7 @@ body {
   width: 100%;
 }
 
-/* -----------------------------------
-🔍 Search Form + Input + Button
------------------------------------ */
+/* === Search Form === */
 form#searchForm {
   display: flex;
   gap: 0.6rem;
@@ -162,19 +166,20 @@ form#searchForm {
   color: var(--color-text);
   font-size: 1.1rem;
   font-weight: 500;
-  outline-offset: 3px;
 }
 
 #cityInput::placeholder {
   color: hsl(32, 8%, 39%);
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 #cityInput:focus {
-  border-color: var(--color-accent1);
-  box-shadow: 0 0 8px var(--color-accent1);
+  border-color: var(--color-highlight);
+  box-shadow: 0 0 10px var(--color-highlight);
+  outline: none;
 }
 
+/* === Search Button === */
 #searchBtn {
   background-color: var(--color-btn-bg);
   color: var(--color-btn-text);
@@ -187,56 +192,66 @@ form#searchForm {
   align-items: center;
   justify-content: center;
   user-select: none;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform var(--transition), background-color var(--transition), box-shadow var(--transition);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
 }
 
-#searchBtn:hover,
-#searchBtn:focus {
+#searchBtn:hover {
   background-color: var(--color-btn-hover-bg);
   box-shadow: 0 6px 15px var(--color-accent2);
   transform: scale(1.05);
-  outline: none;
 }
 
-/* -----------------------------------
-🌗 Theme Toggle Button
------------------------------------ */
+/* === Ripple Animation on Button Click === */
+#searchBtn:active::after {
+  content: "";
+  position: absolute;
+  background: rgba(255,255,255,0.6);
+  border-radius: 50%;
+  width: 120%;
+  height: 120%;
+  top: -10%;
+  left: -10%;
+  animation: ripple 0.4s ease-out;
+}
+
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+/* === Theme Toggle === */
 #toggleTheme {
   background: none;
   border: none;
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   cursor: pointer;
-  user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0.2rem;
   border-radius: 50%;
   color: var(--color-accent1);
-  transition: transform var(--transition);
+  transition: transform 0.4s ease, color 0.4s ease;
 }
 
-#toggleTheme:hover,
-#toggleTheme:focus {
-  transform: rotate(20deg) scale(1.15);
-  outline: none;
+#toggleTheme:hover {
+  transform: rotate(25deg) scale(1.1);
   color: var(--color-accent2);
 }
 
 #toggleTheme.clicked {
-  animation: popTwist 0.5s ease;
+  animation: twistPop 0.4s ease;
 }
 
-@keyframes popTwist {
-  0% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.4) rotate(20deg); }
-  100% { transform: scale(1) rotate(0deg); }
+@keyframes twistPop {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(20deg) scale(1.4); }
+  100% { transform: rotate(0deg) scale(1); }
 }
 
-/* -----------------------------------
-⛅ Forecast & Empty State
------------------------------------ */
+/* === Forecast Card & States === */
 .forecast-card {
   background: var(--color-card-bg);
   border-radius: var(--radius);
@@ -244,9 +259,10 @@ form#searchForm {
   text-align: center;
   padding: 2.5rem 1.5rem;
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
-  user-select: none;
+  position: relative;
+  z-index: 1;
 }
 
 .forecast-card.visible {
@@ -258,24 +274,24 @@ form#searchForm {
   width: 120px;
   height: 120px;
   margin-bottom: 1rem;
-  animation: float 3.5s ease-in-out infinite;
-  user-select: none;
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+  50% { transform: translateY(-10px); }
 }
 
 .forecast-card h2 {
   font-family: var(--font-heading);
-  font-size: 2.6rem;
+  font-size: 2.5rem;
   margin-bottom: 0.6rem;
   color: var(--color-accent2);
 }
 
 .forecast-card p {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   margin-bottom: 0.4rem;
   color: var(--color-text);
 }
@@ -291,14 +307,11 @@ form#searchForm {
   user-select: text;
 }
 
-/* -----------------------------------
-📮 Footer
------------------------------------ */
+/* === Footer === */
 .site-footer {
   margin-top: 2rem;
   text-align: center;
   opacity: 0.75;
-  transition: opacity 0.4s ease;
 }
 
 .site-footer:hover {
@@ -320,19 +333,16 @@ form#searchForm {
   text-decoration: underline;
 }
 
-/* -----------------------------------
-♿ Accessibility
------------------------------------ */
+/* === Accessibility === */
 .sr-only {
   position: absolute;
   left: -10000px;
-  top: auto;
   width: 1px;
   height: 1px;
   overflow: hidden;
 }
 
-/* ✨ Reduced motion support */
+/* === Reduced Motion === */
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
@@ -340,12 +350,10 @@ form#searchForm {
   }
 }
 
-/* -----------------------------------
-📱 Responsive
------------------------------------ */
+/* === Responsive — Cute Mode === */
 @media (max-width: 520px) {
   .card {
-    padding: 2.5rem 1.5rem 2rem;
+    padding: 2rem 1.4rem 1.5rem;
   }
 
   .app-title {
@@ -355,6 +363,7 @@ form#searchForm {
   .top-controls {
     flex-direction: column;
     align-items: stretch;
+    gap: 0.8rem;
   }
 
   #cityInput {
@@ -363,7 +372,7 @@ form#searchForm {
 
   #searchBtn {
     font-size: 1.2rem;
-    padding: 0.6rem;
+    padding: 0.8rem;
   }
 
   .forecast-card h2 {
@@ -376,7 +385,7 @@ form#searchForm {
   }
 
   .weather-icon {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
   }
 }
