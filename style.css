@@ -7,9 +7,12 @@
 
   --color-bg: #fdfaf4;
   --color-text: #4a453f;
-  --color-accent1: #f4c8a7; /* Cream Soda Peach */
-  --color-accent2: #b9ddc8; /* Icy Matcha Green */
-  --color-accent3: #d7e6db; /* Muted Mint Tint */
+  --color-accent1: #f4c8a7;     /* Cream Soda Peach */
+  --color-accent2: #b9ddc8;     /* Icy Matcha Green */
+  --color-accent3: #d7e6db;     /* Muted Mint Tint */
+  --color-highlight: #ffb2d0;   /* Strawberry sparkle */
+  --color-shadow: rgba(255, 203, 218, 0.4);
+
   --color-card-bg: #ffffff;
   --color-input-bg: #fef4eb;
   --color-btn-bg: var(--color-accent2);
@@ -18,22 +21,26 @@
   --color-card-border: #d1e3d6;
 
   --radius: 1.6rem;
-  --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.08);
+  --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.05),
+                 0 0 40px var(--color-shadow);
   --transition: 0.3s ease;
 }
 
 [data-theme="dark"] {
-  --color-bg: #2e2b26;
-  --color-text: #f4f1ec;
-  --color-accent1: #d4a88a;
-  --color-accent2: #7ea293;
-  --color-accent3: #91b5a1;
-  --color-card-bg: #3c3935;
-  --color-input-bg: #4e4a45;
+  --color-bg: #1e1a17;
+  --color-text: #fdf7f0;
+  --color-accent1: #ffc0cb;
+  --color-accent2: #a4edea;
+  --color-accent3: #7a9e94;
+  --color-highlight: #ffd1dc;
+  --color-shadow: rgba(255, 192, 203, 0.25);
+
+  --color-card-bg: #2c2623;
+  --color-input-bg: #3a3431;
   --color-btn-bg: var(--color-accent2);
-  --color-btn-hover-bg: #6a8c7c;
-  --color-btn-text: #f4f1ec;
-  --color-card-border: #888077;
+  --color-btn-hover-bg: #78c9c3;
+  --color-btn-text: #fdf7f0;
+  --color-card-border: #665c56;
 }
 
 /* -----------------------------------
@@ -47,7 +54,7 @@
     radial-gradient(circle at 20% 80%, var(--color-accent1) 15%, transparent 40%),
     radial-gradient(circle at 80% 20%, var(--color-accent2) 15%, transparent 40%),
     radial-gradient(circle at 50% 50%, var(--color-accent3) 25%, transparent 60%);
-  opacity: 0.12;
+  opacity: 0.15;
   z-index: -1;
 }
 
@@ -56,7 +63,13 @@
 ----------------------------------- */
 * {
   box-sizing: border-box;
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -91,7 +104,11 @@ body {
   box-shadow: var(--shadow-soft);
   width: 100%;
   border: 2px solid var(--color-card-border);
-  transition: border-color 0.3s ease;
+  transition: transform var(--transition), background var(--transition);
+}
+
+.card:hover {
+  transform: scale(1.01) rotate(-0.2deg);
 }
 
 /* -----------------------------------
@@ -139,12 +156,11 @@ form#searchForm {
   color: var(--color-text);
   font-size: 1.1rem;
   font-weight: 500;
-  transition: border-color var(--transition), box-shadow var(--transition);
   outline-offset: 3px;
 }
 
 #cityInput::placeholder {
-  color: hsl(32, 8%, 39%); 
+  color: hsl(32, 8%, 39%);
   opacity: 0.8;
 }
 
@@ -161,20 +177,20 @@ form#searchForm {
   font-size: 1.4rem;
   border-radius: var(--radius);
   cursor: pointer;
-  transition: background-color var(--transition), box-shadow var(--transition);
   display: flex;
   align-items: center;
   justify-content: center;
   user-select: none;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform var(--transition), background-color var(--transition), box-shadow var(--transition);
 }
 
 #searchBtn:hover,
 #searchBtn:focus {
   background-color: var(--color-btn-hover-bg);
   box-shadow: 0 6px 15px var(--color-accent2);
-  outline: none;
   transform: scale(1.05);
+  outline: none;
 }
 
 /* -----------------------------------
@@ -185,14 +201,14 @@ form#searchForm {
   border: none;
   font-size: 2.4rem;
   cursor: pointer;
-  transition: transform 0.3s ease;
-  color: var(--color-accent1);
   user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0.2rem;
   border-radius: 50%;
+  color: var(--color-accent1);
+  transition: transform var(--transition);
 }
 
 #toggleTheme:hover,
@@ -202,8 +218,18 @@ form#searchForm {
   color: var(--color-accent2);
 }
 
+#toggleTheme.clicked {
+  animation: popTwist 0.5s ease;
+}
+
+@keyframes popTwist {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.4) rotate(20deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
 /* -----------------------------------
-☀️ Forecast Card
+⛅ Forecast & Empty State
 ----------------------------------- */
 .forecast-card {
   background: var(--color-card-bg);
@@ -252,11 +278,11 @@ form#searchForm {
   margin-top: 1rem;
   font-style: italic;
   font-size: 1.15rem;
-  color: var(--color-accent1);
+  color: var(--color-highlight);
   min-height: 2.4rem;
-  user-select: text;
   font-weight: 600;
   letter-spacing: 0.02em;
+  user-select: text;
 }
 
 /* -----------------------------------
@@ -265,13 +291,27 @@ form#searchForm {
 .site-footer {
   margin-top: 2rem;
   text-align: center;
+  opacity: 0.75;
+  transition: opacity 0.4s ease;
+}
+
+.site-footer:hover {
+  opacity: 1;
 }
 
 .site-footer small {
   font-size: 0.95rem;
-  opacity: 0.75;
   color: var(--color-text);
-  transition: opacity 0.3s ease;
+}
+
+.site-footer a {
+  color: var(--color-accent2);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
 }
 
 /* -----------------------------------
@@ -286,6 +326,14 @@ form#searchForm {
   overflow: hidden;
 }
 
+/* ✨ Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 /* -----------------------------------
 📱 Responsive
 ----------------------------------- */
@@ -298,12 +346,18 @@ form#searchForm {
     font-size: 2.4rem;
   }
 
+  .top-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   #cityInput {
     font-size: 1rem;
   }
 
   #searchBtn {
     font-size: 1.2rem;
+    padding: 0.6rem;
   }
 
   .forecast-card h2 {
@@ -313,5 +367,10 @@ form#searchForm {
   .forecast-card p,
   .crew-message {
     font-size: 1rem;
+  }
+
+  .weather-icon {
+    width: 80px;
+    height: 80px;
   }
 }
