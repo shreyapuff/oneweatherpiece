@@ -33,7 +33,7 @@ function typeWriter(el, text, delay = 40) {
   type();
 }
 
-// 🌦️ ISLAND CLIMATE MAP (Fake Data)
+// 🌦️ ONE PIECE ISLAND CLIMATE DATA
 const islandClimate = {
   alabasta: {
     min: 33,
@@ -109,7 +109,7 @@ const islandClimate = {
   }
 };
 
-// 🗺️ MATCH TEMP TO FICTIONAL ISLAND (for real cities)
+// 🗺️ MAP TEMP TO ISLAND
 function getIslandFromTemp(temp) {
   if (temp <= 0) return islandClimate.drum;
   if (temp <= 10) return islandClimate.thriller;
@@ -120,14 +120,14 @@ function getIslandFromTemp(temp) {
   return islandClimate.punkhazard;
 }
 
-// 🧠 DETECT ONE PIECE ISLAND INPUT
+// 🧠 DETECT FICTIONAL ISLAND NAME
 function isOnePieceIsland(input) {
-  return Object.keys(islandClimate).includes(input.toLowerCase().replace(/\s+/g, ''));
+  return Object.keys(islandClimate).includes(input.toLowerCase().replace(/\s+/g, ""));
 }
 
-// 🧪 DISPLAY FAKE WEATHER
+// 🎲 DISPLAY FAKE ISLAND WEATHER
 function displayIslandFakeWeather(name) {
-  const key = name.toLowerCase().replace(/\s+/g, '');
+  const key = name.toLowerCase().replace(/\s+/g, "");
   const island = islandClimate[key];
 
   if (!island) {
@@ -146,7 +146,7 @@ function displayIslandFakeWeather(name) {
   });
 }
 
-// 📦 DISPLAY WEATHER
+// 💬 DISPLAY FUNCTION
 function displayWeather(data) {
   const forecastCard = document.getElementById("forecastCard");
   const cityName = document.getElementById("cityName");
@@ -166,7 +166,7 @@ function displayWeather(data) {
   forecastCard.classList.add("visible");
 }
 
-// 🧃 ZORO ERROR FALLBACK
+// ❌ ZORO ERROR STATE
 function displayError(name) {
   displayWeather({
     city: `${capitalize(name)} — lost like Zoro`,
@@ -177,7 +177,7 @@ function displayError(name) {
   });
 }
 
-// 🌎 FETCH REAL CITY WEATHER
+// 🌍 FETCH REAL WEATHER DATA
 const API_KEY = "1ccf54d63bd3744681424c5af0d33e9f";
 
 async function fetchRealWeather(city) {
@@ -203,12 +203,12 @@ async function fetchRealWeather(city) {
   }
 }
 
-// 🧠 CAPITALIZE HELP
+// ✨ UTIL
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// 🎯 SEARCH HANDLERS
+// 🔍 SEARCH HANDLING
 const cityInput = document.getElementById("cityInput");
 const searchBtn = document.getElementById("searchBtn");
 
@@ -230,7 +230,7 @@ cityInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") handleSearch();
 });
 
-// 🚀 INITIAL LOAD
+// 🚫 NO DEFAULT LOADING — Empty state only
 window.addEventListener("DOMContentLoaded", () => {
-  displayIslandFakeWeather("Alabasta");
+  // User must initiate search; no island shown on load
 });

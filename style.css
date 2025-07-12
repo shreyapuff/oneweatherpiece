@@ -76,14 +76,18 @@ body {
   font-family: var(--font-body);
   background: var(--color-bg);
   color: var(--color-text);
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 2rem;
+  flex-direction: column;
   user-select: none;
+  overflow-x: hidden;
+  overflow-y: auto; /* 👈 allows scroll when needed */
 }
+
+
 
 /* -----------------------------------
 🧊 Container & Card
@@ -95,7 +99,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;        /* 👈 ensures centering */
 }
+
 
 .card {
   background: var(--color-card-bg);
