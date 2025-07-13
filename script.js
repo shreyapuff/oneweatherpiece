@@ -1,4 +1,4 @@
-// 🌗 THEME TOGGLE
+// 🌗 Theme Toggle
 const themeToggleButton = document.getElementById("toggleTheme");
 const root = document.documentElement;
 const EMOJIS = { light: "🌞", dark: "🌙" };
@@ -17,26 +17,23 @@ function toggleTheme() {
   setTheme(next);
 }
 
-themeToggleButton.addEventListener("click", toggleTheme);
+themeToggleButton?.addEventListener("click", toggleTheme);
 setTheme(localStorage.getItem("theme") || "light");
 
-// ✍️ TYPING ANIMATION WITH OPACITY
+// ✍️ Typing effect
 function typeWriter(el, text, delay = 40) {
   el.textContent = "";
-  el.style.opacity = 0;
   let i = 0;
   function type() {
     if (i < text.length) {
       el.textContent += text[i++];
       setTimeout(type, delay);
-    } else {
-      el.style.opacity = 1;
     }
   }
   type();
 }
 
-// 🌦️ ONE PIECE ISLAND CLIMATE DATA
+// 🌦️ One Piece Island Data
 const islandClimate = {
   alabasta: {
     min: 33,
@@ -112,7 +109,6 @@ const islandClimate = {
   }
 };
 
-// 🗺️ MAP TEMP TO ISLAND
 function getIslandFromTemp(temp) {
   if (temp <= 0) return islandClimate.drum;
   if (temp <= 10) return islandClimate.thriller;
@@ -123,56 +119,49 @@ function getIslandFromTemp(temp) {
   return islandClimate.punkhazard;
 }
 
-// 🧠 DETECT FICTIONAL ISLAND
 function isOnePieceIsland(input) {
   return Object.keys(islandClimate).includes(input.toLowerCase().replace(/\s+/g, ""));
 }
 
-// 🎲 DISPLAY FAKE ISLAND WEATHER
 function displayIslandFakeWeather(name) {
   const key = name.toLowerCase().replace(/\s+/g, "");
   const island = islandClimate[key];
 
-  if (!island) {
-    displayError(name);
-    return;
-  }
+  if (!island) return displayError(name);
 
   const temp = Math.floor(Math.random() * (island.max - island.min + 1)) + island.min;
 
   displayWeather({
     city: `${capitalize(name)} (fictional)`,
     description: island.desc,
-    temp: temp,
+    temp,
     icon: `assets/${island.icon}`,
     crewMessage: island.message
   });
 }
 
-// 💬 DISPLAY FUNCTION
 function displayWeather(data) {
   const forecastCard = document.getElementById("forecastCard");
-  const emptyState = document.getElementById("emptyState");
   const cityName = document.getElementById("cityName");
   const weatherDesc = document.getElementById("weatherDesc");
   const temperature = document.getElementById("temperature");
   const weatherIcon = document.getElementById("weatherIcon");
   const crewMessage = document.getElementById("crewMessage");
 
+  if (!forecastCard || !cityName) return;
+
+  forecastCard.hidden = false;
+  forecastCard.classList.add("visible");
+
   cityName.textContent = data.city;
   weatherDesc.textContent = data.description;
   temperature.textContent = `${data.temp}°C`;
   weatherIcon.src = data.icon;
   weatherIcon.alt = data.description;
-  typeWriter(crewMessage, data.crewMessage);
 
-  forecastCard.hidden = false;
-  forecastCard.classList.add("visible");
-  emptyState.classList.remove("visible");
-  emptyState.setAttribute("aria-hidden", "true");
+  typeWriter(crewMessage, data.crewMessage);
 }
 
-// ❌ ZORO ERROR STATE
 function displayError(name) {
   displayWeather({
     city: `${capitalize(name)} — lost like Zoro`,
@@ -183,60 +172,59 @@ function displayError(name) {
   });
 }
 
-// 🌍 FETCH REAL WEATHER DATA
 const API_KEY = "1ccf54d63bd3744681424c5af0d33e9f";
 
 async function fetchRealWeather(city) {
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
+    city
+  )}&appid=${API_KEY}&units=metric`;
 
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error("City not found");
-    const data = await res.json();
 
+    const data = await res.json();
     const temp = Math.round(data.main.temp);
     const island = getIslandFromTemp(temp);
 
     displayWeather({
       city: `${data.name} — like ${capitalize(island.icon.split("-")[0])}`,
       description: island.desc,
-      temp: temp,
+      temp,
       icon: `assets/${island.icon}`,
       crewMessage: island.message
     });
-  } catch (err) {
+  } catch {
     displayError(city);
   }
 }
 
-// ✨ UTIL
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// 🔍 SEARCH HANDLING
-const cityInput = document.getElementById("cityInput");
-const searchBtn = document.getElementById("searchBtn");
+// 💡 Make sure everything is wired once DOM loads
+window.addEventListener("DOMContentLoaded", () => {
+  const cityInput = document.getElementById("cityInput");
+  const searchBtn = document.getElementById("searchBtn");
 
-function handleSearch() {
-  const city = cityInput.value.trim();
-  if (!city) return;
+  if (!cityInput || !searchBtn) return;
 
-  if (isOnePieceIsland(city)) {
-    displayIslandFakeWeather(city);
-  } else {
-    fetchRealWeather(city);
+  function handleSearch() {
+    const city = cityInput.value.trim();
+    if (!city) return;
+
+    if (isOnePieceIsland(city)) {
+      displayIslandFakeWeather(city);
+    } else {
+      fetchRealWeather(city);
+    }
+
+    cityInput.value = "";
   }
 
-  cityInput.value = "";
-}
-
-searchBtn.addEventListener("click", handleSearch);
-cityInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") handleSearch();
-});
-
-// 🚫 No auto display — user must search
-window.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("forecastCard").hidden = true;
+  searchBtn.addEventListener("click", handleSearch);
+  cityInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") handleSearch();
+  });
 });
