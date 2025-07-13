@@ -1,31 +1,26 @@
-// ================================
-// 🍵 One Weather Piece — script.js
-// ================================
-
-// 🌗 Theme Toggle Handling
+// 🌗 THEME TOGGLE
 const themeToggleButton = document.getElementById("toggleTheme");
 const root = document.documentElement;
 const EMOJIS = { light: "🌞", dark: "🌙" };
 
-function applyTheme(theme) {
+function setTheme(theme) {
   root.setAttribute("data-theme", theme);
   themeToggleButton.textContent = EMOJIS[theme];
   localStorage.setItem("theme", theme);
   themeToggleButton.classList.add("clicked");
-
   setTimeout(() => themeToggleButton.classList.remove("clicked"), 400);
 }
 
 function toggleTheme() {
   const current = root.getAttribute("data-theme");
   const next = current === "light" ? "dark" : "light";
-  applyTheme(next);
+  setTheme(next);
 }
 
 themeToggleButton.addEventListener("click", toggleTheme);
-applyTheme(localStorage.getItem("theme") || "light");
+setTheme(localStorage.getItem("theme") || "light");
 
-// ✍️ Typing Animation for Crew Messages
+// ✍️ TYPING ANIMATION
 function typeWriter(el, text, delay = 40) {
   el.textContent = "";
   let i = 0;
@@ -38,7 +33,7 @@ function typeWriter(el, text, delay = 40) {
   type();
 }
 
-// 🌦️ Island Climate Lore (One Piece references)
+// 🌦️ ONE PIECE ISLAND CLIMATE DATA
 const islandClimate = {
   alabasta: {
     min: 33,
@@ -114,7 +109,7 @@ const islandClimate = {
   }
 };
 
-// 🗺️ Determine Closest One Piece Island by Temp
+// 🗺️ MAP TEMP TO ISLAND
 function getIslandFromTemp(temp) {
   if (temp <= 0) return islandClimate.drum;
   if (temp <= 10) return islandClimate.thriller;
@@ -125,23 +120,24 @@ function getIslandFromTemp(temp) {
   return islandClimate.punkhazard;
 }
 
-// 🧠 Detect if Input is a Fictional Island
-function isFictionalIsland(input) {
+// 🧠 DETECT FICTIONAL ISLAND NAME
+function isOnePieceIsland(input) {
   return Object.keys(islandClimate).includes(input.toLowerCase().replace(/\s+/g, ""));
 }
 
-// 🎲 Display Weather for Fictional Island
-function displayIslandWeather(name) {
+// 🎲 DISPLAY FAKE ISLAND WEATHER
+function displayIslandFakeWeather(name) {
   const key = name.toLowerCase().replace(/\s+/g, "");
   const island = islandClimate[key];
 
   if (!island) {
-    showError(name);
+    displayError(name);
     return;
   }
 
-  const temp = getRandomTemp(island.min, island.max);
-  showForecast({
+  const temp = Math.floor(Math.random() * (island.max - island.min + 1)) + island.min;
+
+  displayWeather({
     city: `${capitalize(name)} (fictional)`,
     description: island.desc,
     temp: temp,
@@ -150,19 +146,11 @@ function displayIslandWeather(name) {
   });
 }
 
-// 🎨 Utility: Capitalize First Letter
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-// 🔢 Random Temp Generator for Fake Islands
-function getRandomTemp(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-// 💬 Display Forecast Info in UI
-function showForecast(data) {
+// 💬 DISPLAY FUNCTION
+function displayWeather(data) {
   const forecastCard = document.getElementById("forecastCard");
+  const emptyState = document.getElementById("emptyState");
+
   const cityName = document.getElementById("cityName");
   const weatherDesc = document.getElementById("weatherDesc");
   const temperature = document.getElementById("temperature");
@@ -176,17 +164,16 @@ function showForecast(data) {
   weatherIcon.alt = data.description;
   typeWriter(crewMessage, data.crewMessage);
 
+  // Toggle visibility
   forecastCard.hidden = false;
   forecastCard.classList.add("visible");
-
-  // Hide empty state
-  document.getElementById("emptyState").classList.remove("visible");
-  document.getElementById("emptyState").setAttribute("aria-hidden", "true");
+  emptyState.setAttribute("aria-hidden", "true");
+  emptyState.classList.remove("visible");
 }
 
-// 🧭 Error Handling (Zoro got lost)
-function showError(name) {
-  showForecast({
+// ❌ ZORO ERROR STATE
+function displayError(name) {
+  displayWeather({
     city: `${capitalize(name)} — lost like Zoro`,
     description: "Zoro got lost again… no weather found.",
     temp: "--",
@@ -195,57 +182,68 @@ function showError(name) {
   });
 }
 
-// 🔥 Fetch Real Weather Data via OpenWeatherMap API
+// 🌍 FETCH REAL WEATHER DATA
 const API_KEY = "1ccf54d63bd3744681424c5af0d33e9f";
 
-async function fetchWeather(city) {
+async function fetchRealWeather(city) {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`;
 
   try {
-    const response = await fetch(url);
-    if (!response.ok) throw new Error("City not found");
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("City not found");
+    const data = await res.json();
 
-    const data = await response.json();
     const temp = Math.round(data.main.temp);
     const island = getIslandFromTemp(temp);
 
-    showForecast({
+    displayWeather({
       city: `${data.name} — like ${capitalize(island.icon.split("-")[0])}`,
       description: island.desc,
       temp: temp,
       icon: `assets/${island.icon}`,
       crewMessage: island.message
     });
-  } catch {
-    showError(city);
+  } catch (err) {
+    displayError(city);
   }
 }
 
-// 🔍 Search Interaction
+// ✨ UTIL
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// 🔍 SEARCH HANDLING
 const cityInput = document.getElementById("cityInput");
 const searchBtn = document.getElementById("searchBtn");
+const searchForm = document.getElementById("searchForm");
 
 function handleSearch() {
-  const query = cityInput.value.trim();
-  if (!query) return;
+  const city = cityInput.value.trim();
+  if (!city) return;
 
-  if (isFictionalIsland(query)) {
-    displayIslandWeather(query);
+  if (isOnePieceIsland(city)) {
+    displayIslandFakeWeather(city);
   } else {
-    fetchWeather(query);
+    fetchRealWeather(city);
   }
 
   cityInput.value = "";
 }
 
-searchBtn.addEventListener("click", handleSearch);
-cityInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") handleSearch();
+searchBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  handleSearch();
 });
 
-// 🧼 Prevent Default Load Display — Stay Idle
+cityInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    handleSearch();
+  }
+});
+
+// 🚫 NO DEFAULT LOADING — Empty state only
 window.addEventListener("DOMContentLoaded", () => {
-  // Show only empty state on load
-  document.getElementById("forecastCard").hidden = true;
-  document.getElementById("forecastCard").classList.remove("visible");
+  // No auto-fetch on load
 });
