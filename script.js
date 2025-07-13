@@ -20,14 +20,17 @@ function toggleTheme() {
 themeToggleButton.addEventListener("click", toggleTheme);
 setTheme(localStorage.getItem("theme") || "light");
 
-// ✍️ TYPING ANIMATION
+// ✍️ TYPING ANIMATION WITH OPACITY
 function typeWriter(el, text, delay = 40) {
   el.textContent = "";
+  el.style.opacity = 0;
   let i = 0;
   function type() {
     if (i < text.length) {
       el.textContent += text[i++];
       setTimeout(type, delay);
+    } else {
+      el.style.opacity = 1;
     }
   }
   type();
@@ -120,7 +123,7 @@ function getIslandFromTemp(temp) {
   return islandClimate.punkhazard;
 }
 
-// 🧠 DETECT FICTIONAL ISLAND NAME
+// 🧠 DETECT FICTIONAL ISLAND
 function isOnePieceIsland(input) {
   return Object.keys(islandClimate).includes(input.toLowerCase().replace(/\s+/g, ""));
 }
@@ -150,7 +153,6 @@ function displayIslandFakeWeather(name) {
 function displayWeather(data) {
   const forecastCard = document.getElementById("forecastCard");
   const emptyState = document.getElementById("emptyState");
-
   const cityName = document.getElementById("cityName");
   const weatherDesc = document.getElementById("weatherDesc");
   const temperature = document.getElementById("temperature");
@@ -164,11 +166,10 @@ function displayWeather(data) {
   weatherIcon.alt = data.description;
   typeWriter(crewMessage, data.crewMessage);
 
-  // Toggle visibility
   forecastCard.hidden = false;
   forecastCard.classList.add("visible");
-  emptyState.setAttribute("aria-hidden", "true");
   emptyState.classList.remove("visible");
+  emptyState.setAttribute("aria-hidden", "true");
 }
 
 // ❌ ZORO ERROR STATE
@@ -216,7 +217,6 @@ function capitalize(str) {
 // 🔍 SEARCH HANDLING
 const cityInput = document.getElementById("cityInput");
 const searchBtn = document.getElementById("searchBtn");
-const searchForm = document.getElementById("searchForm");
 
 function handleSearch() {
   const city = cityInput.value.trim();
@@ -231,19 +231,12 @@ function handleSearch() {
   cityInput.value = "";
 }
 
-searchBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  handleSearch();
-});
-
+searchBtn.addEventListener("click", handleSearch);
 cityInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    handleSearch();
-  }
+  if (e.key === "Enter") handleSearch();
 });
 
-// 🚫 NO DEFAULT LOADING — Empty state only
+// 🚫 No auto display — user must search
 window.addEventListener("DOMContentLoaded", () => {
-  // No auto-fetch on load
+  document.getElementById("forecastCard").hidden = true;
 });

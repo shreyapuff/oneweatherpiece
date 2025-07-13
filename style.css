@@ -1,28 +1,24 @@
 /* -----------------------------------
-🍵 One Weather Piece — Polished Stylesheet
-Every single roast point has been applied.
+🍵 Matcha Soda Theme Colors & Fonts
 ----------------------------------- */
-
-/* === Fonts & Theme Colors === */
 :root {
   --font-body: 'Quicksand', sans-serif;
   --font-heading: 'Caveat', cursive;
 
-  /* 🌞 Light Theme (Matcha Soda Fantasy) */
   --color-bg: #fdfaf4;
-  --color-text: #3e3a35;
-  --color-accent1: #f4c8a7;     /* Cream Soda Peach */
-  --color-accent2: #b8e1c5;     /* Fizzing Icy Matcha */
-  --color-accent3: #dceee3;     /* Pastel Mint Mist */
-  --color-highlight: #ffb2d0;   /* Sparkle Pink */
+  --color-text: #4a453f;
+  --color-accent1: #f4c8a7;
+  --color-accent2: #b9ddc8;
+  --color-accent3: #d7e6db;
+  --color-highlight: #ffb2d0;
   --color-shadow: rgba(255, 203, 218, 0.4);
 
-  --color-card-bg: linear-gradient(145deg, #fffdf9, #f9f2e8);
+  --color-card-bg: #ffffff;
   --color-input-bg: #fef4eb;
   --color-btn-bg: var(--color-accent2);
   --color-btn-hover-bg: #9fcbb5;
   --color-btn-text: #3d3a36;
-  --color-card-border: #cbe9d5;
+  --color-card-border: #d1e3d6;
 
   --radius: 1.6rem;
   --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.05),
@@ -30,49 +26,46 @@ Every single roast point has been applied.
   --transition: 0.3s ease;
 }
 
-/* 🌙 Dark Theme (Strawberry Night Deck) */
 [data-theme="dark"] {
-  --color-bg: #17131c;
+  --color-bg: #1e1a17;
   --color-text: #fdf7f0;
   --color-accent1: #ffc0cb;
   --color-accent2: #a4edea;
-  --color-accent3: #8bc1b8;
+  --color-accent3: #7a9e94;
   --color-highlight: #ffd1dc;
   --color-shadow: rgba(255, 192, 203, 0.25);
 
-  --color-card-bg: linear-gradient(145deg, #2c2623, #1e1a17);
-  --color-input-bg: #312c28;
+  --color-card-bg: #2c2623;
+  --color-input-bg: #3a3431;
   --color-btn-bg: var(--color-accent2);
   --color-btn-hover-bg: #78c9c3;
   --color-btn-text: #fdf7f0;
   --color-card-border: #665c56;
 }
 
-/* === Pastel Animated Background === */
+/* -----------------------------------
+🌊 Background Texture
+----------------------------------- */
 .background-waves {
   position: fixed;
-  inset: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   pointer-events: none;
   background:
     radial-gradient(circle at 20% 80%, var(--color-accent1) 15%, transparent 40%),
     radial-gradient(circle at 80% 20%, var(--color-accent2) 15%, transparent 40%),
     radial-gradient(circle at 50% 50%, var(--color-accent3) 25%, transparent 60%);
-  opacity: 0.12;
-  animation: shimmer 12s ease-in-out infinite alternate;
+  opacity: 0.15;
   z-index: -1;
 }
 
-@keyframes shimmer {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
-
-/* === Reset === */
+/* -----------------------------------
+🌟 Reset & Base
+----------------------------------- */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  transition: background-color var(--transition), color var(--transition), border-color var(--transition), transform var(--transition), opacity var(--transition);
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition);
 }
 
 html {
@@ -92,10 +85,12 @@ body {
   user-select: none;
 }
 
-/* === Container & Card === */
+/* -----------------------------------
+🧊 Container & Card
+----------------------------------- */
 .container {
   width: 100%;
-  max-width: 540px;
+  max-width: 520px;
   padding: 0 1rem;
   display: flex;
   justify-content: center;
@@ -107,23 +102,18 @@ body {
   border-radius: var(--radius);
   padding: 3rem 2.5rem 2.5rem;
   box-shadow: var(--shadow-soft);
-  border: 2px solid var(--color-card-border);
   width: 100%;
-  transform: translateY(0);
+  border: 2px solid var(--color-card-border);
   transition: transform var(--transition), background var(--transition);
-  animation: fadeUp 0.8s ease;
 }
 
 .card:hover {
-  transform: scale(1.01) rotate(-0.3deg);
+  transform: scale(1.01) rotate(-0.2deg);
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* === Header === */
+/* -----------------------------------
+🧭 Header - Title + Controls
+----------------------------------- */
 .site-header {
   display: flex;
   flex-direction: column;
@@ -133,12 +123,10 @@ body {
 
 .app-title {
   font-family: var(--font-heading);
-  font-size: 3.2rem;
+  font-size: 3rem;
   color: var(--color-text);
   text-align: center;
-  text-shadow: 1px 1px 0 var(--color-highlight);
   user-select: text;
-  letter-spacing: 0.05em;
 }
 
 .top-controls {
@@ -149,7 +137,9 @@ body {
   width: 100%;
 }
 
-/* === Search Form === */
+/* -----------------------------------
+🔍 Search Form + Input + Button
+----------------------------------- */
 form#searchForm {
   display: flex;
   gap: 0.6rem;
@@ -166,20 +156,19 @@ form#searchForm {
   color: var(--color-text);
   font-size: 1.1rem;
   font-weight: 500;
+  outline-offset: 3px;
 }
 
 #cityInput::placeholder {
   color: hsl(32, 8%, 39%);
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 #cityInput:focus {
-  border-color: var(--color-highlight);
-  box-shadow: 0 0 10px var(--color-highlight);
-  outline: none;
+  border-color: var(--color-accent1);
+  box-shadow: 0 0 8px var(--color-accent1);
 }
 
-/* === Search Button === */
 #searchBtn {
   background-color: var(--color-btn-bg);
   color: var(--color-btn-text);
@@ -192,66 +181,56 @@ form#searchForm {
   align-items: center;
   justify-content: center;
   user-select: none;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-  position: relative;
-  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform var(--transition), background-color var(--transition), box-shadow var(--transition);
 }
 
-#searchBtn:hover {
+#searchBtn:hover,
+#searchBtn:focus {
   background-color: var(--color-btn-hover-bg);
   box-shadow: 0 6px 15px var(--color-accent2);
   transform: scale(1.05);
+  outline: none;
 }
 
-/* === Ripple Animation on Button Click === */
-#searchBtn:active::after {
-  content: "";
-  position: absolute;
-  background: rgba(255,255,255,0.6);
-  border-radius: 50%;
-  width: 120%;
-  height: 120%;
-  top: -10%;
-  left: -10%;
-  animation: ripple 0.4s ease-out;
-}
-
-@keyframes ripple {
-  0% { transform: scale(0); opacity: 1; }
-  100% { transform: scale(1); opacity: 0; }
-}
-
-/* === Theme Toggle === */
+/* -----------------------------------
+🌗 Theme Toggle Button
+----------------------------------- */
 #toggleTheme {
   background: none;
   border: none;
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   cursor: pointer;
+  user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0.2rem;
   border-radius: 50%;
   color: var(--color-accent1);
-  transition: transform 0.4s ease, color 0.4s ease;
+  transition: transform var(--transition);
 }
 
-#toggleTheme:hover {
-  transform: rotate(25deg) scale(1.1);
+#toggleTheme:hover,
+#toggleTheme:focus {
+  transform: rotate(20deg) scale(1.15);
+  outline: none;
   color: var(--color-accent2);
 }
 
 #toggleTheme.clicked {
-  animation: twistPop 0.4s ease;
+  animation: popTwist 0.5s ease;
 }
 
-@keyframes twistPop {
-  0% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(20deg) scale(1.4); }
-  100% { transform: rotate(0deg) scale(1); }
+@keyframes popTwist {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.4) rotate(20deg); }
+  100% { transform: scale(1) rotate(0deg); }
 }
 
-/* === Forecast Card & States === */
+/* -----------------------------------
+⛅ Forecast & Empty State
+----------------------------------- */
 .forecast-card {
   background: var(--color-card-bg);
   border-radius: var(--radius);
@@ -259,10 +238,9 @@ form#searchForm {
   text-align: center;
   padding: 2.5rem 1.5rem;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(10px);
   transition: opacity 0.6s ease, transform 0.6s ease;
-  position: relative;
-  z-index: 1;
+  user-select: none;
 }
 
 .forecast-card.visible {
@@ -274,24 +252,24 @@ form#searchForm {
   width: 120px;
   height: 120px;
   margin-bottom: 1rem;
-  animation: float 4s ease-in-out infinite;
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+  animation: float 3.5s ease-in-out infinite;
+  user-select: none;
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-15px); }
 }
 
 .forecast-card h2 {
   font-family: var(--font-heading);
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   margin-bottom: 0.6rem;
   color: var(--color-accent2);
 }
 
 .forecast-card p {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   margin-bottom: 0.4rem;
   color: var(--color-text);
 }
@@ -301,17 +279,21 @@ form#searchForm {
   font-style: italic;
   font-size: 1.15rem;
   color: var(--color-highlight);
-  min-height: 2.4rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   user-select: text;
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
 
-/* === Footer === */
+/* -----------------------------------
+📮 Footer
+----------------------------------- */
 .site-footer {
   margin-top: 2rem;
   text-align: center;
   opacity: 0.75;
+  transition: opacity 0.4s ease;
 }
 
 .site-footer:hover {
@@ -333,16 +315,19 @@ form#searchForm {
   text-decoration: underline;
 }
 
-/* === Accessibility === */
+/* -----------------------------------
+♿ Accessibility
+----------------------------------- */
 .sr-only {
   position: absolute;
   left: -10000px;
+  top: auto;
   width: 1px;
   height: 1px;
   overflow: hidden;
 }
 
-/* === Reduced Motion === */
+/* ✨ Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
@@ -350,10 +335,12 @@ form#searchForm {
   }
 }
 
-/* === Responsive — Cute Mode === */
+/* -----------------------------------
+📱 Responsive
+----------------------------------- */
 @media (max-width: 520px) {
   .card {
-    padding: 2rem 1.4rem 1.5rem;
+    padding: 2.5rem 1.5rem 2rem;
   }
 
   .app-title {
@@ -363,7 +350,6 @@ form#searchForm {
   .top-controls {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.8rem;
   }
 
   #cityInput {
@@ -372,7 +358,7 @@ form#searchForm {
 
   #searchBtn {
     font-size: 1.2rem;
-    padding: 0.8rem;
+    padding: 0.6rem;
   }
 
   .forecast-card h2 {
@@ -385,7 +371,7 @@ form#searchForm {
   }
 
   .weather-icon {
-    width: 90px;
-    height: 90px;
+    width: 80px;
+    height: 80px;
   }
 }
