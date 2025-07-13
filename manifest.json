@@ -1,0 +1,28 @@
+{
+  "name": "One Weather Piece",
+  "short_name": "Weather Piece",
+  "description": "🍵 A charming One Piece-themed weather app with pastel vibes and Straw Hat crew forecasts.",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#fdfaf4",
+  "background_color": "#fdfaf4",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/maskable-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

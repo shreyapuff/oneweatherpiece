@@ -4,40 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>🍵 One Weather Piece — Island Forecasts with Charm</title>
-
-    <!-- ✨ Meta Polish -->
-    <meta name="description" content="A pastel-powered One Piece weather app with Straw Hat vibes, cozy themes, and island forecasts." />
+    <meta name="description" content="One Piece-themed weather app with matcha vibes, Straw Hat crew messages, and pastel polish." />
     <meta name="theme-color" content="#fdfaf4" />
     <meta property="og:title" content="One Weather Piece" />
-    <meta property="og:description" content="Cuteness meets climate in this One Piece-inspired weather app built with care." />
+    <meta property="og:description" content="Cuteness meets forecast in this One Piece weather app — built with HTML, CSS, and JS." />
     <meta property="og:type" content="website" />
-
-    <!-- 🌟 Manifest & Favicon -->
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
-
-    <!-- 🖋 Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Quicksand&display=swap" rel="stylesheet" />
-
-    <!-- 💅 Styles -->
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
     <main class="container" role="main" aria-label="One Weather Piece App">
-      <!-- 🌊 Pastel Bubbles Background -->
       <div class="background-waves" aria-hidden="true"></div>
 
-      <!-- 📦 Main Forecast Card -->
       <article class="card" aria-live="polite" aria-atomic="true">
-        
         <!-- 🧭 Header -->
         <header class="site-header" role="banner">
           <h1 class="app-title" tabindex="0">🍵 One Weather Piece</h1>
 
           <div class="top-controls">
             <form id="searchForm" role="search" aria-label="Search city or island" autocomplete="off" novalidate>
-              <label for="cityInput" class="sr-only">Enter a real or fictional island</label>
+              <label for="cityInput" class="sr-only">Enter city or island</label>
               <input
                 type="text"
                 id="cityInput"
@@ -51,18 +40,11 @@
               <button type="submit" id="searchBtn" aria-label="Search weather" title="Get Forecast">🔎</button>
             </form>
 
-            <button
-              id="toggleTheme"
-              aria-label="Toggle light/dark theme"
-              title="Switch Theme"
-              class="theme-toggle"
-            >
-              🌞
-            </button>
+            <button id="toggleTheme" aria-label="Toggle light/dark theme" title="Switch Theme" class="theme-toggle">🌞</button>
           </div>
         </header>
 
-        <!-- ⛅ Forecast Results -->
+        <!-- ⛅ Forecast Card -->
         <section id="forecastCard" class="forecast-card" hidden aria-live="polite" aria-atomic="true">
           <img
             src="assets/luffy-sunny.png"
@@ -77,30 +59,25 @@
           <p id="crewMessage" class="crew-message" tabindex="0" aria-live="assertive"></p>
         </section>
 
-        <!-- 🍃 Idle State Before Search -->
+        <!-- 🧸 Empty State -->
         <section id="emptyState" class="forecast-card visible" aria-hidden="false">
           <img src="assets/luffy-idle.png" alt="Luffy smiling" class="weather-icon" />
           <h2>Welcome, Nakama!</h2>
-          <p>Search your island to begin your forecast ☁️</p>
-          <p class="crew-message">Luffy says: Let’s see what the sea’s got today!</p>
+          <p>Search your island to get started ☁️</p>
+          <p class="crew-message">Luffy says: Let's see what the sea's got today!</p>
         </section>
 
         <!-- 📮 Footer -->
         <footer class="site-footer" role="contentinfo">
           <small>
-            Made with ☀️ HTML, 🍃 CSS, ⚓ JS & 💨 OpenWeather.  
+            Built with ☀️ HTML, 🍃 CSS, ⚓ JS & 💨 OpenWeather.
             <br />
-            <a
-              href="https://github.com/shreyapuff/one-weather-piece"
-              target="_blank"
-              rel="noopener noreferrer"
-            >View on GitHub</a>
+            <a href="https://github.com/shreyapuff/one-weather-piece" target="_blank" rel="noopener">View on GitHub</a>
           </small>
         </footer>
       </article>
     </main>
 
-    <!-- ⚙️ App Logic -->
     <script src="script.js" defer></script>
   </body>
 </html>
