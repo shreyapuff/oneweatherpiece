@@ -165,7 +165,7 @@ function displayIslandFakeWeather(name) {
 }
 
 // 🌐 Fetch real weather
-const API_KEY = "YOUR_API_KEY"; // Replace with your real key
+const API_KEY = "1ccf54d63bd3744681424c5af0d33e9f"; // Replace with your real key
 
 async function fetchRealWeather(city) {
   const base = location.protocol === "https:" ? "https" : "http";
