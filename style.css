@@ -7,10 +7,10 @@
 
   --color-bg: #fdfaf4;
   --color-text: #4a453f;
-  --color-accent1: #f4c8a7;     /* Cream Soda Peach */
-  --color-accent2: #b9ddc8;     /* Icy Matcha Green */
-  --color-accent3: #d7e6db;     /* Muted Mint Tint */
-  --color-highlight: #ffb2d0;   /* Strawberry sparkle */
+  --color-accent1: #f4c8a7;
+  --color-accent2: #b9ddc8;
+  --color-accent3: #d7e6db;
+  --color-highlight: #ffb2d0;
   --color-shadow: rgba(255, 203, 218, 0.4);
 
   --color-card-bg: #ffffff;
@@ -104,6 +104,7 @@ body {
   padding: 3rem 2.5rem 2.5rem;
   box-shadow: var(--shadow-soft);
   width: 100%;
+  height: auto; /* ✅ Ensures it resizes to content */
   border: 2px solid var(--color-card-border);
   transition: transform var(--transition), background var(--transition);
 }
@@ -248,6 +249,11 @@ form#searchForm {
 .forecast-card.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ✅ Fix: Hide unused cards */
+.forecast-card:not(.visible) {
+  display: none;
 }
 
 .weather-icon {
